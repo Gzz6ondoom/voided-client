@@ -1,12 +1,12 @@
-package me.alpha432.oyvey.features.gui;
+package me.gzz6ondoom.voided.features.gui;
 
-import me.alpha432.oyvey.features.Feature;
-import me.alpha432.oyvey.features.gui.items.Item;
-import me.alpha432.oyvey.features.gui.items.buttons.Button;
-import me.alpha432.oyvey.features.modules.client.ClickGuiModule;
-import me.alpha432.oyvey.util.ColorUtil;
-import me.alpha432.oyvey.util.render.RenderUtil;
-import me.alpha432.oyvey.util.render.ScissorUtil;
+import me.gzz6ondoom.voided.features.Feature;
+import me.gzz6ondoom.voided.features.gui.items.Item;
+import me.gzz6ondoom.voided.features.gui.items.buttons.Button;
+import me.gzz6ondoom.voided.features.modules.client.ClickGuiModule;
+import me.gzz6ondoom.voided.util.ColorUtil;
+import me.gzz6ondoom.voided.util.render.RenderUtil;
+import me.gzz6ondoom.voided.util.render.ScissorUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvents;
@@ -15,11 +15,14 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Widget
-        extends Feature {
+public class Widget extends Feature {
+
     protected GuiGraphics context;
+
     private final List<Item> items = new ArrayList<>();
+
     public boolean drag;
+
     private int x;
     private int y;
     private int x2;
@@ -49,26 +52,37 @@ public class Widget
     public void drawScreen(GuiGraphics context, int mouseX, int mouseY, float partialTicks) {
         this.context = context;
         this.drag(mouseX, mouseY);
+
         float totalItemHeight = this.open ? this.getTotalItemHeight() - 2.0f : 0.0f;
+
         int color = ClickGuiModule.getInstance().topColor.getValue().getRGB();
-        context.fill(this.x, this.y - 1, this.x + this.width, this.y + this.height - 6, ClickGuiModule.getInstance().rainbow.getValue() ? ColorUtil.rainbow(ClickGuiModule.getInstance().rainbowHue.getValue()).getRGB() : color);
+
+        context.fill(this.x, this.y - 1, this.x + this.width, this.y + this.height - 6,
+                ClickGuiModule.getInstance().rainbow.getValue() ?
+                        ColorUtil.rainbow(ClickGuiModule.getInstance().rainbowHue.getValue()).getRGB() : color);
+
         if (this.open) {
-            RenderUtil.rect(context, this.x, (float) this.y + 12.5f, this.x + this.width, (float) (this.y + this.height) + totalItemHeight, 0x77000000);
+            RenderUtil.rect(context, this.x, (float) this.y + 12.5f, this.x + this.width,
+                    (float) (this.y + this.height) + totalItemHeight, 0x77000000);
         }
-        drawString(this.getName(), (float) this.x + 3.0f, (float) this.y - 4.0f - (float) OyVeyGui.getClickGui().getTextOffset(), -1);
+
+        // Updated to use VoidedGui
+        drawString(this.getName(), (float) this.x + 3.0f, (float) this.y - 4.0f - (float) VoidedGui.getClickGui().getTextOffset(), -1);
+
         ScissorUtil.enable(context, x, 0, x + width, mc.getWindow().getGuiScaledHeight());
 
         if (this.open) {
             float y = (float) (this.getY() + this.getHeight()) - 3.0f;
             for (Item item : this.getItems()) {
                 if (item.isHidden()) continue;
+
                 item.setLocation((float) this.x + 2.0f, y);
                 item.setWidth(this.getWidth() - 4);
+
                 if (item.isHovering(mouseX, mouseY)) {
                     ScissorUtil.disable(context);
                 }
                 item.drawScreen(context, mouseX, mouseY, partialTicks);
-
                 if (item.isHovering(mouseX, mouseY)) {
                     ScissorUtil.enable(context);
                 }
@@ -83,22 +97,27 @@ public class Widget
         if (mouseButton == 0 && this.isHovering(mouseX, mouseY)) {
             this.x2 = this.x - mouseX;
             this.y2 = this.y - mouseY;
-            OyVeyGui.getClickGui().getComponents().forEach(component -> {
+
+            VoidedGui.getClickGui().getComponents().forEach(component -> {
                 if (component.drag) {
                     component.drag = false;
                 }
             });
+
             this.drag = true;
             return;
         }
+
         if (mouseButton == 1 && this.isHovering(mouseX, mouseY)) {
             this.open = !this.open;
             mc.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1f));
             return;
         }
+
         if (!this.open) {
             return;
         }
+
         this.getItems().forEach(item -> item.mouseClicked(mouseX, mouseY, mouseButton));
     }
 
@@ -177,7 +196,8 @@ public class Widget
     }
 
     public boolean isHovering(int mouseX, int mouseY) {
-        return mouseX >= this.getX() && mouseX <= this.getX() + this.getWidth() && mouseY >= this.getY() && mouseY <= this.getY() + this.getHeight() - (this.open ? 2 : 0);
+        return mouseX >= this.getX() && mouseX <= this.getX() + this.getWidth() &&
+               mouseY >= this.getY() && mouseY <= this.getY() + this.getHeight() - (this.open ? 2 : 0);
     }
 
     private float getTotalItemHeight() {
