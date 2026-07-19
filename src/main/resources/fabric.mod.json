@@ -2,25 +2,25 @@
   "schemaVersion": 1,
   "id": "oyvey",
   "version": "${version}",
-  "name": "oyvey-ported",
-  "description": "free and opensource client base",
+  "name": "voided-client",
+  "description": "voided client cheat menu",
   "authors": [
     "3arthqu4ke",
     "alpha432",
     "cattyn"
   ],
   "contact": {
-    "repo": "https://github.com/mioclient/oyvey-ported"
+    "repo": "https://github.com/Gzz6ondoom/voided-client"
   },
   "license": "MIT",
   "environment": "client",
   "accessWidener": "oyvey.accesswidener",
   "entrypoints": {
     "client": [
-      "me.alpha432.oyvey.OyVey"
+      "me.alpha432.voided.voided"
     ],
     "main": [
-      "me.alpha432.oyvey.OyVey"
+      "me.alpha432.voided.voided"
     ]
   },
   "mixins": [
