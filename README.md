@@ -1,14 +1,11 @@
-<div align="center">
+# VOIDED
+My personal Minecraft client base (skidded + customized from oyvey-ported).
 
-# oyvey-ported
-Kosher client base ported to modern Minecraft by [@cattyngmd](https://github.com/cattyngmd)
+**Version**: 1.21.x Fabric
 
-<img src="images/ui.png" width="90%" />
+## Features
+- [List your modules here later]
+- Custom VOIDED menu
+- Anarchy / 2b2t ready
 
-# Why
-![](https://i.imgur.com/VYjIphG.png)
-
-# What
-Add stuff to it like you would add stuff to your 1.12.2 OyVey paste
-
-</div>
+Add your own modules and make it yours.
