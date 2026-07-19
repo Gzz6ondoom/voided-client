@@ -1,17 +1,19 @@
-package me.alpha432.oyvey;
+package me.gzz6ondoom.voided;
 
-import me.alpha432.oyvey.manager.*;
-import me.alpha432.oyvey.util.BuildConfig;
-import me.alpha432.oyvey.util.TextUtil;
+import me.gzz6ondoom.voided.manager.*;
+import me.gzz6ondoom.voided.util.BuildConfig;
+import me.gzz6ondoom.voided.util.TextUtil;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class OyVey implements ModInitializer, ClientModInitializer {
+public class Voided implements ModInitializer, ClientModInitializer {
+
     public static float TIMER = 1f;
 
-    public static final Logger LOGGER = LogManager.getLogger("OyVey");
+    public static final Logger LOGGER = LogManager.getLogger("VOIDED");
+
     public static ServerManager serverManager;
     public static ColorManager colorManager;
     public static RotationManager rotationManager;
@@ -28,6 +30,7 @@ public class OyVey implements ModInitializer, ClientModInitializer {
     public void onInitialize() {
         LOGGER.info("Pre-initializing {} v{}",
                 BuildConfig.NAME, BuildConfig.VERSION);
+
         configManager = new ConfigManager();
         eventManager = new EventManager();
         serverManager = new ServerManager();
@@ -53,13 +56,12 @@ public class OyVey implements ModInitializer, ClientModInitializer {
         commandManager.init();
         moduleManager.init();
         friendManager.init();
-
         configManager.load();
         colorManager.init();
+
         Runtime.getRuntime().addShutdownHook(new Thread(() -> configManager.save()));
 
         long endTime = System.nanoTime();
-
         LOGGER.info("Initialized {} in {}ms",
                 BuildConfig.NAME, (endTime - startTime) / 1000000.0);
     }
