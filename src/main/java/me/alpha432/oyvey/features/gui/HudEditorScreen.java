@@ -1,10 +1,10 @@
-package me.alpha432.oyvey.features.gui;
+package me.gzz6ondoom.voided.features.gui;
 
-import me.alpha432.oyvey.OyVey;
-import me.alpha432.oyvey.features.Feature;
-import me.alpha432.oyvey.features.gui.items.buttons.ModuleButton;
-import me.alpha432.oyvey.features.modules.Module;
-import me.alpha432.oyvey.features.modules.client.HudModule;
+import me.gzz6ondoom.voided.Voided;
+import me.gzz6ondoom.voided.features.Feature;
+import me.gzz6ondoom.voided.features.gui.items.buttons.ModuleButton;
+import me.gzz6ondoom.voided.features.modules.Module;
+import me.gzz6ondoom.voided.features.modules.client.HudModule;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.CharacterEvent;
@@ -16,23 +16,27 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class HudEditorScreen extends Screen {
+
     private static HudEditorScreen INSTANCE;
 
     private final ArrayList<Widget> components = new ArrayList<>();
+
     public HudModule currentDragging;
     public boolean anyHover;
 
     private HudEditorScreen() {
-        super(Component.literal("oyvey-hudeditor"));
+        super(Component.literal("VOIDED - HUD Editor"));
         load();
     }
 
     private void load() {
         Widget hud = new Widget("Hud", 50, 50, true);
-        OyVey.moduleManager.stream()
+
+        Voided.moduleManager.stream()
                 .filter(m -> m.getCategory() == Module.Category.HUD && !m.hidden)
                 .map(ModuleButton::new)
                 .forEach(hud::addButton);
+
         this.components.add(hud);
         this.components.forEach(component -> component.getItems().sort(Comparator.comparing(Feature::getName)));
     }
@@ -97,4 +101,3 @@ public class HudEditorScreen extends Screen {
         return INSTANCE;
     }
 }
-
